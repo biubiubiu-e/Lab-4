@@ -25,7 +25,7 @@ public class SubItem {
         return variables;
     }
 
-    private void setVariables(Map<String, Double> variables) {
+    public void setVariables(Map<String, Double> variables) {
         this.variables = variables;
     }
 

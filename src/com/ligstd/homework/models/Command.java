@@ -15,7 +15,7 @@ public class Command {
         return type;
     }
 
-    private void setType(CommandEnum type) {
+    public void setType(CommandEnum type) {
         this.type = type;
     }
 
@@ -23,7 +23,7 @@ public class Command {
         return expressions;
     }
 
-    private void setExpressions(Map<String, Double> expressions) {
+    public void setExpressions(Map<String, Double> expressions) {
         this.expressions = expressions;
     }
 

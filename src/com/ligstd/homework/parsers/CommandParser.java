@@ -2,7 +2,6 @@ package com.ligstd.homework.parsers;
 
 import com.ligstd.homework.enums.CommandEnum;
 import com.ligstd.homework.models.Command;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,7 +45,6 @@ public class CommandParser {
         }
     }
 
-    @Nullable
     private Command ParseCommand(String inputString) {
         Matcher commandMatcher = commandPattern.matcher(inputString);
         CommandEnum type;

@@ -2,7 +2,6 @@ package com.ligstd.homework.parsers;
 
 import com.ligstd.homework.utils.Utils;
 import com.ligstd.homework.models.SubItem;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -58,7 +57,6 @@ public class ExpressionParser {
         }
     }
 
-    @Nullable
     private SubItem ParseSubItem(String inputString) {
         Double coefficient;
         Map<String, Double> variablesTemp = null;
