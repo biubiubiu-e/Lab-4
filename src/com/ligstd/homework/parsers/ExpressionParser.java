@@ -1,5 +1,6 @@
 package com.ligstd.homework.parsers;
 
+import com.ligstd.homework.merging.CanMerge;
 import com.ligstd.homework.utils.Utils;
 import com.ligstd.homework.models.SubItem;
 
@@ -10,10 +11,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Created by tt030 on 2016/9/10.
- */
-public class ExpressionParser {
+public class ExpressionParser extends CanMerge {
     private static final Pattern subExpressionPattern = Pattern.compile("^(-?\\d*)\\**(.*)$");
     private static final Pattern variablePattern = Pattern.compile("^(\\d*\\.?\\d*)([a-zA-Z]*)((\\^\\d+)?)$");
 
@@ -25,7 +23,7 @@ public class ExpressionParser {
     }
 
     public void setInput(String input) {
-        getResult().clear();
+        setResult(new ArrayList<>());
         this.input = input;
     }
 
@@ -44,16 +42,15 @@ public class ExpressionParser {
     public void Parse() {
         input = Utils.PreProcessMinus(Utils.RemoveSpaces(input));
         String[] subItemStrings = input.split("\\+");
-        for (String subItemString : subItemStrings) {
-            try{
+        try {
+            for (String subItemString : subItemStrings) {
                 SubItem subItem = ParseSubItem(subItemString);
                 getResult().add(subItem);
             }
-            catch (ArithmeticException exception){
-                getResult().clear();
-                throw exception;
-            }
-
+            Merge(getResult());
+        } catch (ArithmeticException exception) {
+            getResult().clear();
+            throw exception;
         }
     }
 

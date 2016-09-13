@@ -1,13 +1,7 @@
 package com.ligstd.homework.models;
 
-import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-/**
- * Created by tt030 on 2016/9/10.
- */
 public class SubItem {
 
     private Double coefficient;
@@ -32,6 +26,12 @@ public class SubItem {
     public SubItem(Double coefficient, Map<String, Double> variables) {
         setCoefficient(coefficient);
         setVariables(variables);
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        if (null != getVariables()) getVariables().clear();
+        super.finalize();
     }
 
 }

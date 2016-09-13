@@ -1,23 +1,21 @@
 package com.ligstd.homework.calculators;
 
-import com.ligstd.homework.models.Command;
 import com.ligstd.homework.models.SubItem;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
-/**
- * Created by tt030 on 2016/9/12.
- */
 public class SimplifyCalculator extends CalculatorBase {
 
     @Override
     public void Calculate(){
         Simplify();
-        Merge();
+        Merge(getNewExpression());
     }
 
     private void Simplify() {
-        getNewExpression().clear();
+        setNewExpression(new ArrayList<>());
         Map<String, Double> expressions = getCommand().getExpressions();
         for (SubItem subItem : getExpression()) {
             Map<String, Double> variables = subItem.getVariables();

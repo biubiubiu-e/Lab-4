@@ -1,8 +1,5 @@
 package com.ligstd.homework.utils;
 
-/**
- * Created by tt030 on 2016/9/10.
- */
 public class Utils {
 
     public static String RemoveSpaces(String s) {
@@ -10,6 +7,19 @@ public class Utils {
     }
 
     public static String PreProcessMinus(String s) {
-        return s.replaceAll("-", "+-");
+        String result = s.replaceAll("-", "+-");
+        if (result.startsWith("+-")) result = result.substring(1);
+        return result;
+    }
+
+    public static String PostProcessMinus(String s) {
+        return s.replaceAll("\\+-", "-");
+    }
+
+    public static String RemoveZeros(String s) {
+        if (s.indexOf(".") > 0) {
+            s = s.replaceAll("\\.?0+?$", "");
+        }
+        return s;
     }
 }

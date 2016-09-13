@@ -4,9 +4,6 @@ import com.ligstd.homework.enums.CommandEnum;
 
 import java.util.Map;
 
-/**
- * Created by tt030 on 2016/9/11.
- */
 public class Command {
     private CommandEnum type;
     private Map<String, Double> expressions;
@@ -27,8 +24,14 @@ public class Command {
         this.expressions = expressions;
     }
 
-    public Command(CommandEnum type, Map<String, Double> expressions){
+    public Command(CommandEnum type, Map<String, Double> expressions) {
         setType(type);
         setExpressions(expressions);
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        if (null != getExpressions()) getExpressions().clear();
+        super.finalize();
     }
 }

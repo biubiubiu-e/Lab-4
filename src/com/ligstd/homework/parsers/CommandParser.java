@@ -8,11 +8,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Created by tt030 on 2016/9/11.
- */
 public class CommandParser {
-    private static final Pattern commandPattern = Pattern.compile("^!(simplify|d/d)\\s?(.+)$");
+    private static final Pattern commandPattern = Pattern.compile("^!(simplify|d/d)\\s?(.*)$");
 
     private Command result;
     private String input;
@@ -68,6 +65,7 @@ public class CommandParser {
         if (type == CommandEnum.Simplify) {
             String[] expressionsArray = expressionsString.split("\\s");
             for (String expression : expressionsArray) {
+                if(expression.isEmpty()) continue;
                 String[] args = expression.split("=");
                 String variableName = args[0];
                 String value = args[1];
