@@ -40,8 +40,9 @@ public class ExpressionParser extends CanMerge {
     }
 
     public void Parse() {
-        input = Utils.PreProcessMinus(Utils.RemoveSpaces(input));
-        String[] subItemStrings = input.split("\\+");
+        setInput(Utils.PreProcessMinus(Utils.RemoveSpaces(input)));
+        if (getInput().isEmpty()) throw new ArithmeticException("Error, No Input.");
+        String[] subItemStrings = getInput().split("\\+");
         try {
             for (String subItemString : subItemStrings) {
                 SubItem subItem = ParseSubItem(subItemString);
@@ -60,7 +61,7 @@ public class ExpressionParser extends CanMerge {
 
         Matcher subExpressionMatcher = subExpressionPattern.matcher(inputString);
 
-        if (!subExpressionMatcher.find()) throw new ArithmeticException();
+        if (!subExpressionMatcher.find()) throw new ArithmeticException("Error, Illegal Expression Format.");
 
         String coefficientString = subExpressionMatcher.group(1);
         String subExpression = subExpressionMatcher.group(2);
@@ -78,7 +79,7 @@ public class ExpressionParser extends CanMerge {
             for (String variable : variables) {
                 Matcher variableMatcher = variablePattern.matcher(variable);
 
-                if (!variableMatcher.find()) throw new ArithmeticException();
+                if (!variableMatcher.find()) throw new ArithmeticException("Error, Illegal Expression Format.");
 
                 String subCoefficientString = variableMatcher.group(1);
                 String variableName = variableMatcher.group(2);

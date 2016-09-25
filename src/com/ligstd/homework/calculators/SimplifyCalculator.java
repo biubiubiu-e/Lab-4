@@ -9,7 +9,7 @@ import java.util.Map;
 public class SimplifyCalculator extends CalculatorBase {
 
     @Override
-    public void Calculate(){
+    public void Calculate() {
         Simplify();
         Merge(getNewExpression());
     }
@@ -20,15 +20,19 @@ public class SimplifyCalculator extends CalculatorBase {
         for (SubItem subItem : getExpression()) {
             Map<String, Double> variables = subItem.getVariables();
             Double newCoefficient = subItem.getCoefficient();
-            Map<String, Double> newVariables = new HashMap<>();
-            for (String variableName : variables.keySet()) {
-                Double power = variables.get(variableName);
-                if (expressions.containsKey(variableName)) {
-                    Double value = expressions.get(variableName);
-                    newCoefficient *= Math.pow(value, power);
-                } else {
-                    newVariables.put(variableName, power);
+            Map<String, Double> newVariables = null;
+            if (null != variables) {
+                newVariables = new HashMap<>();
+                for (String variableName : variables.keySet()) {
+                    Double power = variables.get(variableName);
+                    if (expressions.containsKey(variableName)) {
+                        Double value = expressions.get(variableName);
+                        newCoefficient *= Math.pow(value, power);
+                    } else {
+                        newVariables.put(variableName, power);
+                    }
                 }
+                if (newVariables.isEmpty()) newVariables = null;
             }
             getNewExpression().add(new SubItem(newCoefficient, newVariables));
         }

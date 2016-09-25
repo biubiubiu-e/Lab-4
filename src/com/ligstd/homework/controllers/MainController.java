@@ -95,66 +95,64 @@ public class MainController {
             getExpressionParser().Parse();
             if (null != getCurrentExpression()) getCurrentExpression().clear();
             setCurrentExpression(getExpressionParser().getResult());
+            Feedback(getCurrentExpression());
         }
-        Feedback();
     }
 
     private void Calculate() {
-        if (getCurrentExpression() == null) throw new ArithmeticException();
+        if (getCurrentExpression() == null) throw new ArithmeticException("Error, Expression Undefined.");
         if (getCurrentCommand().getType() == CommandEnum.Simplify) {
             getSimplifyCalculator().setCommand(getCurrentCommand());
             getSimplifyCalculator().setExpression(getCurrentExpression());
             getSimplifyCalculator().Calculate();
-            if (null != getCurrentExpression()) getCurrentExpression().clear();
-            setCurrentExpression(getSimplifyCalculator().getNewExpression());
+            Feedback(getSimplifyCalculator().getNewExpression());
+            getSimplifyCalculator().getNewExpression().clear();
         } else {
             getDerivationCalculator().setCommand(getCurrentCommand());
             getDerivationCalculator().setExpression(getCurrentExpression());
             getDerivationCalculator().Calculate();
-            if (null != getCurrentExpression()) getCurrentExpression().clear();
-            setCurrentExpression(getDerivationCalculator().getNewExpression());
+            Feedback(getDerivationCalculator().getNewExpression());
+            getDerivationCalculator().getNewExpression().clear();
         }
         System.gc();
     }
 
-    private void Feedback() {
-        Integer expressionSize = getCurrentExpression().size();
+    private void Feedback(List<SubItem> resultExpression) {
+        Integer expressionSize = resultExpression.size();
         String[] subItemStrings = new String[expressionSize];
         for (Integer subItemIndex = 0; subItemIndex < expressionSize; subItemIndex++) {
-            SubItem currentSubItem = getCurrentExpression().get(subItemIndex);
+            SubItem currentSubItem = resultExpression.get(subItemIndex);
             Map<String, Double> variables = currentSubItem.getVariables();
-            Integer variablesSize = variables.size();
-
-            String[] variableStrings = new String[variablesSize + 1];
-
             Double coefficient = currentSubItem.getCoefficient();
             if (coefficient == 1) {
-                subItemStrings[subItemIndex] += "+";
-                variableStrings[0] = "+";
+                subItemStrings[subItemIndex] = "+";
             } else if (coefficient == -1) {
-                subItemStrings[subItemIndex] += "-";
-                variableStrings[0] = "-";
+                subItemStrings[subItemIndex] = "-";
+            } else if (null == variables) {
+                subItemStrings[subItemIndex] = Utils.RemoveZeros(String.format("+%f", currentSubItem.getCoefficient()));
             } else {
-                variableStrings[0] = Utils.RemoveZeros(String.format("+%f", currentSubItem.getCoefficient()));
-            }
-
-            Integer currentIndex = 1;
-            for (String variableName : variables.keySet()) {
-                Double power = variables.get(variableName);
-                if (power == 1) {
-                    variableStrings[currentIndex] = variableName;
-                } else {
-                    String powerString = Utils.RemoveZeros(power.toString());
-                    variableStrings[currentIndex] = String.format("%s^%s", variableName, powerString);
+                subItemStrings[subItemIndex] = Utils.RemoveZeros(String.format("+%f", currentSubItem.getCoefficient())) + "*";
+                Integer variablesSize = variables.size();
+                String[] variableStrings = new String[variablesSize];
+                Integer currentIndex = 0;
+                for (String variableName : variables.keySet()) {
+                    Double power = variables.get(variableName);
+                    if (power == 1) {
+                        variableStrings[currentIndex] = variableName;
+                    } else {
+                        String powerString = Utils.RemoveZeros(power.toString());
+                        variableStrings[currentIndex] = String.format("%s^%s", variableName, powerString);
+                    }
+                    currentIndex++;
                 }
-                currentIndex++;
-            }
 
-            subItemStrings[subItemIndex] = String.join("*", (CharSequence[]) variableStrings);
+                subItemStrings[subItemIndex] += String.join("*", (CharSequence[]) variableStrings);
+            }
         }
 
         String resultString = Utils.PostProcessMinus(String.join("", (CharSequence[]) subItemStrings));
-        if (resultString.startsWith("+")) resultString = resultString.substring(1);
+        if (resultString.startsWith("+*")) resultString = resultString.substring(2);
+        else if (resultString.startsWith("+")) resultString = resultString.substring(1);
         outputStream.println(resultString);
     }
 }

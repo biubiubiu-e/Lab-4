@@ -32,6 +32,7 @@ public class CommandParser {
     }
 
     public void Parse() {
+        setInput(getInput().trim());
         try{
             Command command = ParseCommand(getInput());
             setResult(command);
@@ -47,7 +48,7 @@ public class CommandParser {
         CommandEnum type;
         Map<String, Double> expressions = new HashMap<>();
 
-        if (!commandMatcher.find()) throw new ArithmeticException();
+        if (!commandMatcher.find()) throw new ArithmeticException("Error, Illegal Command Format.");
         String commandString = commandMatcher.group(1);
         String expressionsString = commandMatcher.group(2);
 
@@ -59,7 +60,7 @@ public class CommandParser {
                 type = CommandEnum.Derivation;
                 break;
             default:
-                throw new ArithmeticException();
+                throw new ArithmeticException("Error, Command Undefined.");
         }
 
         if (type == CommandEnum.Simplify) {

@@ -7,9 +7,15 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        MainController mainController = new MainController(System.in, System.out);
+       MainController mainController = new MainController(System.in, System.out);
         while(true){
-            mainController.AcquireInput();
+            try {
+                mainController.AcquireInput();
+            }
+            catch (ArithmeticException exception){
+                System.out.println(exception.getMessage());
+            }
         }
+
     }
 }
