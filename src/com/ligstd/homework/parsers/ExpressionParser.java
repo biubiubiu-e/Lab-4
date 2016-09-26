@@ -4,10 +4,7 @@ import com.ligstd.homework.merging.CanMerge;
 import com.ligstd.homework.utils.Utils;
 import com.ligstd.homework.models.SubItem;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -68,6 +65,8 @@ public class ExpressionParser extends CanMerge {
 
         if (coefficientString.isEmpty()) {
             coefficient = 1.0;
+        } else if (Objects.equals(coefficientString, "-")){
+            coefficient = -1.0;
         } else {
             coefficient = Double.parseDouble(coefficientString);
         }

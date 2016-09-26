@@ -124,14 +124,17 @@ public class MainController {
             SubItem currentSubItem = resultExpression.get(subItemIndex);
             Map<String, Double> variables = currentSubItem.getVariables();
             Double coefficient = currentSubItem.getCoefficient();
-            if (coefficient == 1) {
-                subItemStrings[subItemIndex] = "+";
-            } else if (coefficient == -1) {
-                subItemStrings[subItemIndex] = "-";
-            } else if (null == variables) {
+            if (null == variables) {
                 subItemStrings[subItemIndex] = Utils.RemoveZeros(String.format("+%f", currentSubItem.getCoefficient()));
             } else {
-                subItemStrings[subItemIndex] = Utils.RemoveZeros(String.format("+%f", currentSubItem.getCoefficient())) + "*";
+                if (coefficient == 1) {
+                    subItemStrings[subItemIndex] = "+";
+                } else if (coefficient == -1) {
+                    subItemStrings[subItemIndex] = "-";
+                }
+                else{
+                    subItemStrings[subItemIndex] = Utils.RemoveZeros(String.format("+%f", currentSubItem.getCoefficient())) + "*";
+                }
                 Integer variablesSize = variables.size();
                 String[] variableStrings = new String[variablesSize];
                 Integer currentIndex = 0;
@@ -145,11 +148,9 @@ public class MainController {
                     }
                     currentIndex++;
                 }
-
                 subItemStrings[subItemIndex] += String.join("*", (CharSequence[]) variableStrings);
             }
         }
-
         String resultString = Utils.PostProcessMinus(String.join("", (CharSequence[]) subItemStrings));
         if (resultString.startsWith("+*")) resultString = resultString.substring(2);
         else if (resultString.startsWith("+")) resultString = resultString.substring(1);

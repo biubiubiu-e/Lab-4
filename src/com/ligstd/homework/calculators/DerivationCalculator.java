@@ -33,6 +33,7 @@ public class DerivationCalculator extends CalculatorBase {
                             newVariables.put(variableName, power);
                         }
                     }
+                    if(newVariables.isEmpty()) newVariables = null;
                     getNewExpression().add(new SubItem(newCoefficient, newVariables));
                 }
         }
