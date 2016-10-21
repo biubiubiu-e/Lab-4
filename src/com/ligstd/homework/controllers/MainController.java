@@ -12,78 +12,156 @@ import com.ligstd.homework.utils.Utils;
 import java.io.*;
 import java.util.List;
 import java.util.Map;
-
+/**
+ *
+ * @author me
+ *
+ */
 public class MainController {
-    private static final CommandParser commandParser = new CommandParser();
-    private static final ExpressionParser expressionParser = new ExpressionParser();
-    private static final SimplifyCalculator simplifyCalculator = new SimplifyCalculator();
-    private static final DerivationCalculator derivationCalculator = new DerivationCalculator();
-
+    /**
+     *
+     */
+    private static final CommandParser
+        commandParser = new CommandParser();
+    /**
+     *
+     */
+    private static final ExpressionParser
+        expressionParser = new ExpressionParser();
+    /**
+     *
+     */
+    private static final SimplifyCalculator
+        simplifyCalculator = new SimplifyCalculator();
+    /**
+     *
+     */
+    private static final DerivationCalculator
+        derivationCalculator = new DerivationCalculator();
+    /**
+     *
+     */
     private BufferedReader inputReader;
+    /**
+     *
+     */
     private PrintStream outputStream;
-
+    /**
+     *
+     */
     private List<SubItem> currentExpression;
+    /**
+     *
+     */
     private Command currentCommand;
-
+    /**
+     *
+     * @return ?
+     */
     public static CommandParser getCommandParser() {
         return commandParser;
     }
-
+    /**
+     *
+     * @return ?
+     */
     public static ExpressionParser getExpressionParser() {
         return expressionParser;
     }
-
+    /**
+     *
+     * @return ?
+     */
     public static SimplifyCalculator getSimplifyCalculator() {
         return simplifyCalculator;
     }
-
+    /**
+     *
+     * @return ?
+     */
     public static DerivationCalculator getDerivationCalculator() {
         return derivationCalculator;
     }
-
-    public BufferedReader getInputReader() {
+    /**
+     *
+     * @return ?
+     */
+    public final BufferedReader getInputReader() {
         return inputReader;
     }
-
-    public void setInputReader(BufferedReader inputReader) {
+    /**
+     *
+     * @param inputReader ?
+     */
+    public final void setInputReader(BufferedReader inputReader) {
         this.inputReader = inputReader;
     }
-
+    /**
+     *
+     * @return ?
+     */
     public PrintStream getOutputStream() {
         return outputStream;
     }
-
+    /**
+     *
+     * @param outputStream ?
+     */
     public void setOutputStream(PrintStream outputStream) {
         this.outputStream = outputStream;
     }
-
+    /**
+     *
+     * @return ?
+     */
     public List<SubItem> getCurrentExpression() {
         return currentExpression;
     }
-
+    /**
+     *
+     * @param currentExpression ?
+     */
     public void setCurrentExpression(List<SubItem> currentExpression) {
         this.currentExpression = currentExpression;
     }
-
+    /**
+     *
+     * @return ?
+     */
     public Command getCurrentCommand() {
         return currentCommand;
     }
-
+    /**
+     *
+     * @param currentCommand ?
+     */
     public void setCurrentCommand(Command currentCommand) {
         this.currentCommand = currentCommand;
     }
-
+    /**
+     *
+     * @param inputStream ?
+     * @param outputStream ?
+     */
     public MainController(InputStream inputStream, PrintStream outputStream) {
         setInputReader(new BufferedReader(new InputStreamReader(inputStream)));
         setOutputStream(outputStream);
     }
-
+    /**
+     *
+     * @throws IOException ?
+     */
     public void AcquireInput() throws IOException {
         getOutputStream().print('>');
         String currentInput = getInputReader().readLine();
-        ParseInput(currentInput);
+        if (currentInput != null) {
+            ParseInput(currentInput);
+        }
     }
-
+    /**
+     *
+     * @param input ?
+     */
     private void ParseInput(String input) {
         if (input.startsWith("!")) {
             getCommandParser().setInput(input);
@@ -98,7 +176,9 @@ public class MainController {
             Feedback(getCurrentExpression());
         }
     }
-
+    /**
+     *
+     */
     private void Calculate() {
         if (getCurrentExpression() == null) throw new ArithmeticException("Error, Expression Undefined.");
         if (getCurrentCommand().getType() == CommandEnum.Simplify) {
@@ -116,7 +196,10 @@ public class MainController {
         }
         System.gc();
     }
-
+    /**
+     *
+     * @param resultExpression ?
+     */
     private void Feedback(List<SubItem> resultExpression) {
         Integer expressionSize = resultExpression.size();
         String[] subItemStrings = new String[expressionSize];
