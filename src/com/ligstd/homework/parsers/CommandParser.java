@@ -8,55 +8,42 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 /**
- * 
- * @author z
- *
+ * @author xieaoran
+ * Parser that parses commands
  */
 public class CommandParser {
 	/**
-	 * 
+	 * Pattern matching commands
 	 */
     private static final 
         Pattern commandPattern = Pattern.compile("^!(simplify|d/d)\\s?(.*)$");
     /**
-     * 
+     * Parsing result
      */
     private Command result;
     /**
-     * 
+     * Parser input
      */
     private String input;
-    /**
-     * 
-     * @return ,
-     */
+
     public final String getInput() {
         return input;
     }
-    /**
-     * 
-     * @param input ,
-     */
+
     public final void setInput(final String input) {
         setResult(null);
         this.input = input;
     }
-    /**
-     * 
-     * @return ,
-     */
     public final Command getResult() {
         return result;
     }
-    /**
-     * 
-     * @param result ，
-     */
+
     public final void setResult(final Command result) {
         this.result = result;
     }
+
     /**
-     * 
+     * Entry function for Parsing
      */
     public final void Parse() {
         setInput(getInput().trim());
@@ -69,9 +56,9 @@ public class CommandParser {
         }
     }
     /**
-     * 
-     * @param inputString ,
-     * @return ,
+     * Function that does actual parsing
+     * @param inputString Parser input,
+     * @return Parsing result,
      */
     private Command ParseCommand(final String inputString) {
         Matcher commandMatcher = commandPattern.matcher(inputString);

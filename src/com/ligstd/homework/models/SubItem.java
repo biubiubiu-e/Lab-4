@@ -2,51 +2,39 @@ package com.ligstd.homework.models;
 
 import java.util.Map;
 /**
- * 
- * @author z
- *
+ * @author blackgreymon
+ * Class that defines sub items
  */
 public class SubItem {
 	/**
-	 * 
+	 * Coefficient of sub item
 	 */
     private Double coefficient;
     /**
-     * 
+     * Variable list of sub item
      */
     private Map<String, Double> variables;
-    /**
-     * 
-     * @return ,
-     */
+
     public final Double getCoefficient() {
         return coefficient;
     }
-    /**
-     * 
-     * @param coefficient ,
-     */
+
     public final void setCoefficient(final Double coefficient) {
         this.coefficient = coefficient;
     }
-    /**
-     * 
-     * @return ,
-     */
+
     public final Map<String, Double> getVariables() {
         return variables;
     }
-    /**
-     * 
-     * @param variables
-     */
+
     public final void setVariables(final Map<String, Double> variables) {
         this.variables = variables;
     }
+
     /**
-     * 
-     * @param coefficient .
-     * @param variables .
+     * Constructor for sub item
+     * @param coefficient Coefficient of sub item.
+     * @param variables Variable list of sub item.
      */
     public 
     SubItem(final Double coefficient, final Map<String, Double> variables) {
@@ -54,6 +42,10 @@ public class SubItem {
         setVariables(variables);
     }
 
+    /**
+     * Destructor for sub item
+     * @throws Throwable Undestructed sub item
+     */
     @Override
     protected final void finalize() throws Throwable {
         if (null != getVariables()) {

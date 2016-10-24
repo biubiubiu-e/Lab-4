@@ -19,137 +19,102 @@ import java.util.Map;
  */
 public class MainController {
     /**
-     *
+     * Parser for commands
      */
     private static final CommandParser
         commandParser = new CommandParser();
     /**
-     *
+     * Parser for expressions
      */
     private static final ExpressionParser
         expressionParser = new ExpressionParser();
     /**
-     *
+     * Calculator for simplification
      */
     private static final SimplifyCalculator
         simplifyCalculator = new SimplifyCalculator();
     /**
-     *
+     * Calculator for derivation
      */
     private static final DerivationCalculator
         derivationCalculator = new DerivationCalculator();
     /**
-     *
+     * Reader that reads user's input
      */
     private BufferedReader inputReader;
     /**
-     *
+     * Stream that outputs results
      */
     private PrintStream outputStream;
     /**
-     *
+     * Currently stored expression
      */
     private List<SubItem> currentExpression;
     /**
-     *
+     * Currently stored command
      */
     private Command currentCommand;
-    /**
-     *
-     * @return ?
-     */
+
     public static CommandParser getCommandParser() {
         return commandParser;
     }
-    /**
-     *
-     * @return ?
-     */
+
     public static ExpressionParser getExpressionParser() {
         return expressionParser;
     }
-    /**
-     *
-     * @return ?
-     */
+
     public static SimplifyCalculator getSimplifyCalculator() {
         return simplifyCalculator;
     }
-    /**
-     *
-     * @return ?
-     */
+
     public static DerivationCalculator getDerivationCalculator() {
         return derivationCalculator;
     }
-    /**
-     *
-     * @return ?
-     */
+
     public final BufferedReader getInputReader() {
         return inputReader;
     }
-    /**
-     *
-     * @param inputReader ?
-     */
+
     public final void setInputReader(BufferedReader inputReader) {
         this.inputReader = inputReader;
     }
-    /**
-     *
-     * @return ?
-     */
+
     public PrintStream getOutputStream() {
         return outputStream;
     }
-    /**
-     *
-     * @param outputStream ?
-     */
+
     public void setOutputStream(PrintStream outputStream) {
         this.outputStream = outputStream;
     }
-    /**
-     *
-     * @return ?
-     */
+
     public List<SubItem> getCurrentExpression() {
         return currentExpression;
     }
-    /**
-     *
-     * @param currentExpression ?
-     */
+
     public void setCurrentExpression(List<SubItem> currentExpression) {
         this.currentExpression = currentExpression;
     }
-    /**
-     *
-     * @return ?
-     */
+
     public Command getCurrentCommand() {
         return currentCommand;
     }
-    /**
-     *
-     * @param currentCommand ?
-     */
+
     public void setCurrentCommand(Command currentCommand) {
         this.currentCommand = currentCommand;
     }
+
     /**
-     *
-     * @param inputStream ?
-     * @param outputStream ?
+     * Constructor for MainController
+     * @param inputStream Stream that accepts user's input
+     * @param outputStream Stream that outputs results
      */
     public MainController(InputStream inputStream, PrintStream outputStream) {
         setInputReader(new BufferedReader(new InputStreamReader(inputStream)));
         setOutputStream(outputStream);
     }
     /**
-     *
-     * @throws IOException ?
+     * Function that acquires user's input
+     * @throws IOException Parsing Exception
      */
     public void AcquireInput() throws IOException {
         getOutputStream().print('>');
@@ -159,8 +124,8 @@ public class MainController {
         }
     }
     /**
-     *
-     * @param input ?
+     * Function that parses user's input
+     * @param input User's Input
      */
     private void ParseInput(String input) {
         if (input.startsWith("!")) {
@@ -177,7 +142,7 @@ public class MainController {
         }
     }
     /**
-     *
+     * Function that do actual calculation
      */
     private void Calculate() {
         if (getCurrentExpression() == null) throw new ArithmeticException("Error, Expression Undefined.");
@@ -197,8 +162,8 @@ public class MainController {
         System.gc();
     }
     /**
-     *
-     * @param resultExpression ?
+     * Result output
+     * @param resultExpression Calculation result
      */
     private void Feedback(List<SubItem> resultExpression) {
         Integer expressionSize = resultExpression.size();

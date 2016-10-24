@@ -5,20 +5,25 @@ import com.ligstd.homework.models.SubItem;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
 /**
- *
- * @author me
- *
+ * @author xieaoran
+ * Calculator Class for simplification
  */
 public class SimplifyCalculator extends CalculatorBase {
 
+    /**
+     * Entry method for calculating derivation
+     */
     @Override
     public final void Calculate() {
         Simplify();
         Merge(getNewExpression());
     }
+
     /**
-     *
+     * Simplifies List<SubItem> "expression"
+     * Stores the result in List<SubItem> "newExpression"
      */
     private void Simplify() {
         setNewExpression(new ArrayList<>());

@@ -4,14 +4,13 @@ import com.ligstd.homework.models.SubItem;
 
 import java.util.List;
 /**
- *
- * @author me
- *
+ * @author xieaoran
+ * Abstact Class defining mergable expressions
  */
 public abstract class CanMerge {
     /**
-     *
-     * @param expression ?
+     * Merging Function
+     * @param expression Expression input
      */
     protected static void Merge(final List<SubItem> expression) {
         Integer expressionSize = expression.size();
@@ -46,10 +45,10 @@ public abstract class CanMerge {
         }
     }
     /**
-     *
-     * @param subItem1 ?
-     * @param subItem2 ?
-     * @return ?
+     * Check if two SubItems can be merged
+     * @param subItem1 SubItem 1
+     * @param subItem2 SubItem 2
+     * @return If two SubItems can be merged
      */
     private static Boolean 
         CheckCanMerge(final SubItem subItem1, final SubItem subItem2) { 

@@ -6,13 +6,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 /**
- *
- * @author me
- *
+ * @author xieaoran
+ * Calculator Class for derivation
  */
 public class DerivationCalculator extends CalculatorBase {
     /**
-     *
+     * Entry method for calculating derivation
      */
     @Override
     public final void Calculate() {
@@ -20,7 +19,8 @@ public class DerivationCalculator extends CalculatorBase {
         Merge(getNewExpression());
     }
     /**
-     *
+     * Calculates derivation for List<SubItem> "expression"
+     * Stores the result in List<SubItem> "newExpression"
      */
     private void Derivate() {
         setNewExpression(new ArrayList<>());

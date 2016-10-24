@@ -4,19 +4,14 @@ import com.ligstd.homework.controllers.MainController;
 
 import java.io.IOException;
 /**
- *
- * @author
- *
+ * @author blackgreymon
+ * Main Class
  */
 public final class Main {
     /**
-     *
-     */
-    private Main() { }
-    /**
-     *
-     * @param args ??
-     * @throws IOException throws exception
+     * Main entry method
+     * @param args Startup arguments
+     * @throws IOException throws All Exceptions
      */
     public static void main(final String[]  args) throws IOException {
        MainController mainController =

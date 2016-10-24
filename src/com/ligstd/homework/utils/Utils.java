@@ -10,43 +10,49 @@ import com.ligstd.homework.models.SubItem;
 
 
 /**
- * 
- * @author z
- *
+ * @author xieaoran
+ *         Utility Class
  */
 public class Utils extends CanMerge {
-	/**
-	 *
-	 * @param s ?
-	 * @return string
-	 */
+    /**
+     * Removes spaces from an input string
+     *
+     * @param s Input string,
+     * @return String without spaces,
+     */
     public static String RemoveSpaces(final String s) {
         return s.replaceAll("\\s", "");
     }
+
     /**
-     * 
-     * @param s ?
-     * @return result
+     * PreProcessing SubItem strings starting with minus
+     *
+     * @param s Input SubItem string,
+     * @return PreProcessed result,
      */
     public static String PreProcessMinus(String s) {
         String result = s.replaceAll("-", "+-");
         if (result.startsWith("+-")) {
-        	result = result.substring(1);
+            result = result.substring(1);
         }
         return result;
     }
+
     /**
-     * 
-     * @param s ,
-     * @return ,
+     * PostProcessing SubItem strings starting with minus
+     *
+     * @param s Input SubItem string,
+     * @return PostProcessed result,
      */
     public static String PostProcessMinus(String s) {
         return s.replaceAll("\\+-", "-");
     }
+
     /**
-     * 
-     * @param s ,
-     * @return ,
+     * Remove Zeros from decimal strings
+     *
+     * @param s Input decimal string,
+     * @return Decimal string without zeros,
      */
     public static String RemoveZeros(String s) {
         if (s.indexOf(".") > 0) {
@@ -54,12 +60,8 @@ public class Utils extends CanMerge {
         }
         return s;
     }
-    /**
-     * 
-     * @param expression1 ,
-     * @param expression2 ,
-     * @return ,
-     */
+
+/*
     public static List<SubItem> 
     Multiply(final List<SubItem> expression1, final List<SubItem> expression2) {
         List<SubItem> result = new ArrayList<>();
@@ -88,4 +90,6 @@ public class Utils extends CanMerge {
         Merge(result);
         return result;
     }
+*/
+
 }
