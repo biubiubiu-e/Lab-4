@@ -6,41 +6,74 @@ import com.ligstd.homework.models.SubItem;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ *
+ * @author who
+ *
+ */
 public abstract class CalculatorBase extends CanMerge {
+    /**
+     *
+     */
     private List<SubItem> expression;
-
+    /**
+     *
+     */
     private Command command;
-
+    /**
+     *
+     */
     private List<SubItem> newExpression;
-
-    public List<SubItem> getExpression() {
+    /**
+     *
+     * @return expression
+     */
+    public final List<SubItem> getExpression() {
         return expression;
     }
-
-    public void setExpression(List<SubItem> expression) {
+    /**
+     *
+     * @param expression ??
+     */
+    public final void setExpression(final List<SubItem> expression) {
         this.expression = expression;
     }
-
-    public Command getCommand() {
+    /**
+     *
+     * @return command
+     */
+    public final Command getCommand() {
         return command;
     }
-
-    public void setCommand(Command command) {
+    /**
+     *
+     * @param command ?
+     */
+    public final void setCommand(final Command command) {
         this.command = command;
     }
-
-    public List<SubItem> getNewExpression() {
+    /**
+     *
+     * @return new Expression
+     */
+    public final List<SubItem> getNewExpression() {
         return newExpression;
     }
-
-    public void setNewExpression(List<SubItem> newExpression) {
+    /**
+     *
+     * @param newExpression ?
+     */
+    public final void setNewExpression(final List<SubItem> newExpression) {
         this.newExpression = newExpression;
     }
-
+    /**
+     *
+     */
     public CalculatorBase() {
         setNewExpression(new ArrayList<>());
     }
-
+    /**
+     *
+     */
     public abstract void Calculate();
 }

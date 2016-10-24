@@ -7,48 +7,80 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+/**
+ * 
+ * @author z
+ *
+ */
 public class CommandParser {
-    private static final Pattern commandPattern = Pattern.compile("^!(simplify|d/d)\\s?(.*)$");
-
+	/**
+	 * 
+	 */
+    private static final 
+        Pattern commandPattern = Pattern.compile("^!(simplify|d/d)\\s?(.*)$");
+    /**
+     * 
+     */
     private Command result;
+    /**
+     * 
+     */
     private String input;
-
-    public String getInput() {
+    /**
+     * 
+     * @return ,
+     */
+    public final String getInput() {
         return input;
     }
-
-    public void setInput(String input) {
+    /**
+     * 
+     * @param input ,
+     */
+    public final void setInput(final String input) {
         setResult(null);
         this.input = input;
     }
-
-    public Command getResult() {
+    /**
+     * 
+     * @return ,
+     */
+    public final Command getResult() {
         return result;
     }
-
-    public void setResult(Command result) {
+    /**
+     * 
+     * @param result ，
+     */
+    public final void setResult(final Command result) {
         this.result = result;
     }
-
-    public void Parse() {
+    /**
+     * 
+     */
+    public final void Parse() {
         setInput(getInput().trim());
-        try{
+        try {
             Command command = ParseCommand(getInput());
             setResult(command);
-        }
-        catch (ArithmeticException exception){
+        } catch (ArithmeticException exception){
             setResult(null);
             throw exception;
         }
     }
-
-    private Command ParseCommand(String inputString) {
+    /**
+     * 
+     * @param inputString ,
+     * @return ,
+     */
+    private Command ParseCommand(final String inputString) {
         Matcher commandMatcher = commandPattern.matcher(inputString);
         CommandEnum type;
         Map<String, Double> expressions = new HashMap<>();
 
-        if (!commandMatcher.find()) throw new ArithmeticException("Error, Illegal Command Format.");
+        if (!commandMatcher.find()) {
+        	throw new ArithmeticException("Error, Illegal Command Format.");
+        }
         String commandString = commandMatcher.group(1);
         String expressionsString = commandMatcher.group(2);
 
@@ -66,7 +98,9 @@ public class CommandParser {
         if (type == CommandEnum.Simplify) {
             String[] expressionsArray = expressionsString.split("\\s");
             for (String expression : expressionsArray) {
-                if(expression.isEmpty()) continue;
+                if(expression.isEmpty()) {
+                	continue;
+                }
                 String[] args = expression.split("=");
                 String variableName = args[0];
                 String value = args[1];

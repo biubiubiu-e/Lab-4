@@ -5,15 +5,21 @@ import com.ligstd.homework.models.SubItem;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
+/**
+ *
+ * @author me
+ *
+ */
 public class SimplifyCalculator extends CalculatorBase {
 
     @Override
-    public void Calculate() {
+    public final void Calculate() {
         Simplify();
         Merge(getNewExpression());
     }
-
+    /**
+     *
+     */
     private void Simplify() {
         setNewExpression(new ArrayList<>());
         Map<String, Double> expressions = getCommand().getExpressions();
@@ -32,7 +38,9 @@ public class SimplifyCalculator extends CalculatorBase {
                         newVariables.put(variableName, power);
                     }
                 }
-                if (newVariables.isEmpty()) newVariables = null;
+                if (newVariables.isEmpty()) {
+                    newVariables = null;
+                }
             }
             getNewExpression().add(new SubItem(newCoefficient, newVariables));
         }
